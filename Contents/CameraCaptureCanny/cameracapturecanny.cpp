@@ -1,5 +1,10 @@
 /*
-https://blog.csdn.net/qq_38231713/article/details/90648139?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.control&dist_request_id=28c2fbca-cb78-4e3b-be9b-dc46494e42da&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.control
+https://blog.csdn.net/qq_38231713/article/details/
+90648139?utm_medium=distribute.pc_relevant.none-ta
+sk-blog-BlogCommendFromMachineLearnPai2-3.control&di
+st_request_id=28c2fbca-cb78-4e3b-be9b-dc46494e42da&de
+pth_1-utm_source=distribute.pc_relevant.none-task-blo
+g-BlogCommendFromMachineLearnPai2-3.control
 
 */
 #include <opencv2/imgcodecs.hpp>
@@ -14,7 +19,7 @@ https://blog.csdn.net/qq_38231713/article/details/90648139?utm_medium=distribute
 using namespace cv;
 using namespace std;
 
-//²¶»ñÍ¼Æ¬
+//æ•è·å›¾ç‰‡
 int picture_capture() {
 	char filename[] = "pic_1.jpg";
 
@@ -24,7 +29,7 @@ int picture_capture() {
 	Mat frame;
 	VideoCapture capture;
 
-	capture.open(0); //´ò¿ªÉãÏñÍ·
+	capture.open(0); //æ‰“å¼€æ‘„åƒå¤´
 
 	if (!capture.isOpened()) {
 		cerr << "Failed to open the video device!\n" << endl;
@@ -58,7 +63,7 @@ int picture_capture() {
 	return 0;
 }
 
-//Éú³É¸ßË¹¾í»ıºË kernel
+//ç”Ÿæˆé«˜æ–¯å·ç§¯æ ¸ kernel
 void Gaussian_kernel(int kernel_size, int sigma, Mat &kernel)
 {
 	const double PI = 3.1415926;
@@ -66,7 +71,7 @@ void Gaussian_kernel(int kernel_size, int sigma, Mat &kernel)
 
 	kernel = Mat(kernel_size, kernel_size, CV_32FC1);
 	float s = 2 * sigma * sigma;
-	//±Ê¼Ç£º ×¢Òâ¶şÎ¬¸ßË¹º¯ÊıÏÂÃæ¾ÍÊÇ2*pi*sigma^2£¬Ã»ÓĞ¸ùºÅ
+	//ç¬”è®°ï¼š æ³¨æ„äºŒç»´é«˜æ–¯å‡½æ•°ä¸‹é¢å°±æ˜¯2*pi*sigma^2ï¼Œæ²¡æœ‰æ ¹å·
 	for (int i = 0; i < kernel_size; i++)
 	{
 		for (int j = 0; j < kernel_size; j++)
@@ -80,12 +85,12 @@ void Gaussian_kernel(int kernel_size, int sigma, Mat &kernel)
 }
 
 /*
-¼ÆËãÌİ¶ÈÖµºÍ·½Ïò
-imageSource Ô­Ê¼»Ò¶ÈÍ¼
-imageX X·½ÏòÌİ¶ÈÍ¼Ïñ
-imageY Y·½ÏòÌİ¶ÈÍ¼Ïñ
-gradXY ¸ÃµãµÄÌİ¶È·ùÖµ
-theta Ìİ¶È·½Ïò½Ç¶È theta=arctan(imageY/imageX)
+è®¡ç®—æ¢¯åº¦å€¼å’Œæ–¹å‘
+imageSource åŸå§‹ç°åº¦å›¾
+imageX Xæ–¹å‘æ¢¯åº¦å›¾åƒ
+imageY Yæ–¹å‘æ¢¯åº¦å›¾åƒ
+gradXY è¯¥ç‚¹çš„æ¢¯åº¦å¹…å€¼
+theta æ¢¯åº¦æ–¹å‘è§’åº¦ theta=arctan(imageY/imageX)
 */
 void GradDirection(const Mat imageSource, Mat &imageX, Mat &imageY, Mat &gradXY, Mat &theta)
 {
@@ -99,19 +104,19 @@ void GradDirection(const Mat imageSource, Mat &imageX, Mat &imageY, Mat &gradXY,
 	int cols = imageSource.cols;
 
 	/*
-	Mat.step²ÎÊıÖ¸Í¼ÏñµÄÒ»ĞĞÊµ¼ÊÕ¼ÓÃµÄÄÚ´æ³¤¶È£¬ÒÔ×Ö½ÚÎª»ù±¾µ¥Î»£¬
-	ÒòÎªopencvÖĞµÄÍ¼Ïñ»á¶ÔÃ¿ĞĞµÄ³¤¶È×Ô¶¯²¹Æë£¨8µÄ±¶Êı£©£¬
-	±à³ÌÊ±¾¡Á¿Ê¹ÓÃÖ¸Õë£¬Ö¸Õë¶ÁĞ´ÏñËØÊÇËÙ¶È×î¿ìµÄ£¬Ê¹ÓÃatº¯Êı×îÂı¡£
+	Mat.stepå‚æ•°æŒ‡å›¾åƒçš„ä¸€è¡Œå®é™…å ç”¨çš„å†…å­˜é•¿åº¦ï¼Œä»¥å­—èŠ‚ä¸ºåŸºæœ¬å•ä½ï¼Œ
+	å› ä¸ºopencvä¸­çš„å›¾åƒä¼šå¯¹æ¯è¡Œçš„é•¿åº¦è‡ªåŠ¨è¡¥é½ï¼ˆ8çš„å€æ•°ï¼‰ï¼Œ
+	ç¼–ç¨‹æ—¶å°½é‡ä½¿ç”¨æŒ‡é’ˆï¼ŒæŒ‡é’ˆè¯»å†™åƒç´ æ˜¯é€Ÿåº¦æœ€å¿«çš„ï¼Œä½¿ç”¨atå‡½æ•°æœ€æ…¢ã€‚
 	*/
 	int stepXY = imageX.step;
 	int step = imageSource.step;
 
 	/*
-	Mat::dataµÄÄ¬ÈÏÀàĞÍÎªuchar*£¬µ«ºÜ¶àÊ±ºòĞèÒª´¦ÀíÆäËüÀàĞÍ£¬Èçfloat¡¢int£¬
-	´ËÊ±ĞèÒª½«dataÇ¿ÖÆÀàĞÍ×ª»»£¬Èç£º
+	Mat::dataçš„é»˜è®¤ç±»å‹ä¸ºuchar*ï¼Œä½†å¾ˆå¤šæ—¶å€™éœ€è¦å¤„ç†å…¶å®ƒç±»å‹ï¼Œå¦‚floatã€intï¼Œ
+	æ­¤æ—¶éœ€è¦å°†dataå¼ºåˆ¶ç±»å‹è½¬æ¢ï¼Œå¦‚ï¼š
 	Mat src(1000,1000,CV_32F);
 	float* myptr = (float*)src.data;
-	ÎŞÂÛMatµÄtypeÊÇºÎÖÖÀàĞÍ£¬Mat::data¾ùÎªuchar*
+	æ— è®ºMatçš„typeæ˜¯ä½•ç§ç±»å‹ï¼ŒMat::dataå‡ä¸ºuchar*
 	*/
 	uchar *PX = imageX.data;
 	uchar *PY = imageY.data;
@@ -136,8 +141,8 @@ void GradDirection(const Mat imageSource, Mat &imageX, Mat &imageY, Mat &gradXY,
 			double gradX = double(a02 + 2 * a12 + a22 - a00 - 2 * a10 - a20);
 			double gradY = double(a00 + 2 * a01 + a02 - a20 - 2 * a21 - a22);
 
-			//±éÀúÊÇ´Ói,j=1¿ªÊ¼µ½rows,cols-2µÄ£¬Í¼ÏñÏñËØ¶¼³õÊ¼»¯Îª0£¬
-			//ËùÒÔ×îÍâ±ßµÄÒ»È¦ÏñËØÎª0ÊÇºÚµÄ
+			//éå†æ˜¯ä»i,j=1å¼€å§‹åˆ°rows,cols-2çš„ï¼Œå›¾åƒåƒç´ éƒ½åˆå§‹åŒ–ä¸º0ï¼Œ
+			//æ‰€ä»¥æœ€å¤–è¾¹çš„ä¸€åœˆåƒç´ ä¸º0æ˜¯é»‘çš„
 			//PX[i*stepXY + j*(stepXY / step)] = abs(gradX);
 			//PY[i*stepXY + j*(stepXY / step)] = abs(gradY);
 			imageX.at<int>(i, j) = abs(gradX);
@@ -146,7 +151,7 @@ void GradDirection(const Mat imageSource, Mat &imageX, Mat &imageY, Mat &gradXY,
 			{
 				gradX = 0.000000000001;
 			}
-			//»¡¶ÈÊı¸ÄÎª½Ç¶ÈÊı,³ıÒÔpi³ËÒÔ180
+			//å¼§åº¦æ•°æ”¹ä¸ºè§’åº¦æ•°,é™¤ä»¥piä¹˜ä»¥180
 			theta.at<int>(i, j) = atan(gradY / gradX) * 57.3;
 			theta.at<int>(i, j) = (theta.at<int>(i, j) + 360) % 360;
 			gradXY.at<int>(i, j) = sqrt(gradX*gradX + gradY * gradY);
@@ -154,13 +159,13 @@ void GradDirection(const Mat imageSource, Mat &imageX, Mat &imageY, Mat &gradXY,
 		}
 	}
 	/*
-	ÔÚ¾­¹ı´¦Àíºó£¬ĞèÒªÓÃconvertScaleAbs()º¯Êı½«Æä×ª»ØÔ­À´µÄuint8ĞÎÊ½£¬
-	·ñÔò½«ÎŞ·¨ÏÔÊ¾Í¼Ïñ£¬¶øÖ»ÊÇÒ»¸±»ÒÉ«µÄ´°¿Ú¡£
-	º¯ÊıÔ­ĞÍÎª
+	åœ¨ç»è¿‡å¤„ç†åï¼Œéœ€è¦ç”¨convertScaleAbs()å‡½æ•°å°†å…¶è½¬å›åŸæ¥çš„uint8å½¢å¼ï¼Œ
+	å¦åˆ™å°†æ— æ³•æ˜¾ç¤ºå›¾åƒï¼Œè€Œåªæ˜¯ä¸€å‰¯ç°è‰²çš„çª—å£ã€‚
+	å‡½æ•°åŸå‹ä¸º
 	void convertScaleAbs(InputArray src, OutputArray dst,
 								  double alpha = 1, double beta = 0);
-	ÆäÖĞ¿ÉÑ¡²ÎÊıalphaÊÇÉìËõÏµÊı£¬betaÊÇ¼Óµ½½á¹ûÉÏµÄÒ»¸öÖµ£¬½á¹û·µ»Øuint8ÀàĞÍµÄÍ¼Æ¬
-	¹¦ÄÜ£ºÊµÏÖ½«Ô­Í¼Æ¬×ª»»Îªuint8ÀàĞÍ
+	å…¶ä¸­å¯é€‰å‚æ•°alphaæ˜¯ä¼¸ç¼©ç³»æ•°ï¼Œbetaæ˜¯åŠ åˆ°ç»“æœä¸Šçš„ä¸€ä¸ªå€¼ï¼Œç»“æœè¿”å›uint8ç±»å‹çš„å›¾ç‰‡
+	åŠŸèƒ½ï¼šå®ç°å°†åŸå›¾ç‰‡è½¬æ¢ä¸ºuint8ç±»å‹
 	*/
 	convertScaleAbs(imageX, imageX);
 	convertScaleAbs(imageY, imageY);
@@ -168,14 +173,14 @@ void GradDirection(const Mat imageSource, Mat &imageX, Mat &imageY, Mat &gradXY,
 }
 
 /*
-¾Ö²¿·Ç¼«´óÖµÒÖÖÆ
-ÑØ×Å¸ÃµãÌİ¶È·½Ïò£¬±È½ÏÇ°ºóÁ½¸öµãµÄ·ùÖµ´óĞ¡£¬Èô¸Ãµã´óÓÚÇ°ºóÁ½µã£¬Ôò±£Áô£¬
-Èô¸ÃµãĞ¡ÓÚÇ°ºóÁ½µãÈÎÒâÒ»µã£¬ÔòÖÃÎª0£»
-imageInput ÊäÈëµÃµ½Ìİ¶ÈÍ¼Ïñ
-imageOutput Êä³öµÄ·Ç¼«´óÖµÒÖÖÆÍ¼Ïñ
-theta Ã¿¸öÏñËØµãµÄÌİ¶È·½Ïò½Ç¶È
-imageX X·½ÏòÌİ¶È
-imageY Y·½ÏòÌİ¶È
+å±€éƒ¨éæå¤§å€¼æŠ‘åˆ¶
+æ²¿ç€è¯¥ç‚¹æ¢¯åº¦æ–¹å‘ï¼Œæ¯”è¾ƒå‰åä¸¤ä¸ªç‚¹çš„å¹…å€¼å¤§å°ï¼Œè‹¥è¯¥ç‚¹å¤§äºå‰åä¸¤ç‚¹ï¼Œåˆ™ä¿ç•™ï¼Œ
+è‹¥è¯¥ç‚¹å°äºå‰åä¸¤ç‚¹ä»»æ„ä¸€ç‚¹ï¼Œåˆ™ç½®ä¸º0ï¼›
+imageInput è¾“å…¥å¾—åˆ°æ¢¯åº¦å›¾åƒ
+imageOutput è¾“å‡ºçš„éæå¤§å€¼æŠ‘åˆ¶å›¾åƒ
+theta æ¯ä¸ªåƒç´ ç‚¹çš„æ¢¯åº¦æ–¹å‘è§’åº¦
+imageX Xæ–¹å‘æ¢¯åº¦
+imageY Yæ–¹å‘æ¢¯åº¦
 */
 void NonLocalMaxValue(const Mat imageInput, Mat &imageOutput, const Mat &theta, const Mat &imageX, const Mat &imageY)
 {
@@ -189,8 +194,8 @@ void NonLocalMaxValue(const Mat imageInput, Mat &imageOutput, const Mat &theta, 
 	{
 		for (int j = 1; j < cols - 1; j++)
 		{
-			//Ö´ĞĞcontinueÊ±£¬»áÖ´ĞĞ±¾´Îµü´úµÄÊ£Óà²¿·Ö£¬²¢¿ªÊ¼ÏÂÒ»´Îµü´ú
-			//Ö´ĞĞbreakÊ±£¬»áÖ´ĞĞ°üº¬ËüµÄÑ­»·£¬²¢Ö´ĞĞÏÂÒ»½×¶Î
+			//æ‰§è¡Œcontinueæ—¶ï¼Œä¼šæ‰§è¡Œæœ¬æ¬¡è¿­ä»£çš„å‰©ä½™éƒ¨åˆ†ï¼Œå¹¶å¼€å§‹ä¸‹ä¸€æ¬¡è¿­ä»£
+			//æ‰§è¡Œbreakæ—¶ï¼Œä¼šæ‰§è¡ŒåŒ…å«å®ƒçš„å¾ªç¯ï¼Œå¹¶æ‰§è¡Œä¸‹ä¸€é˜¶æ®µ
 			if (0 == imageInput.at<uchar>(i, j))continue;
 
 			int g00 = imageInput.at<uchar>(i - 1, j - 1);
@@ -205,25 +210,25 @@ void NonLocalMaxValue(const Mat imageInput, Mat &imageOutput, const Mat &theta, 
 			int g21 = imageInput.at<uchar>(i + 1, j);
 			int g22 = imageInput.at<uchar>(i + 1, j + 1);
 
-			int direction = theta.at<int>(i, j); //¸ÃµãÌİ¶ÈµÄ½Ç¶ÈÖµ
+			int direction = theta.at<int>(i, j); //è¯¥ç‚¹æ¢¯åº¦çš„è§’åº¦å€¼
 			int g1 = 0;
 			int g2 = 0;
 			int g3 = 0;
 			int g4 = 0;
-			double tmp1 = 0.0; //±£´æÑÇÏñËØµã²åÖµµÃµ½µÄ»Ò¶ÈÊı
+			double tmp1 = 0.0; //ä¿å­˜äºšåƒç´ ç‚¹æ’å€¼å¾—åˆ°çš„ç°åº¦æ•°
 			double tmp2 = 0.0;
-			//ÔÚCÖĞ£¬ÓĞabs(),labs(),fabs()·Ö±ğ¼ÆËãint ,long ,double ÀàĞÍµÄ¾ø¶ÔÖµ£»
-			//¶øÔÚC++ÖĞ£¬abs()ÒÑ±»ÖØÔØ£¬¿ÉÊÊÓÃÓÚ¸÷ÖÖÀàĞÍ
+			//åœ¨Cä¸­ï¼Œæœ‰abs(),labs(),fabs()åˆ†åˆ«è®¡ç®—int ,long ,double ç±»å‹çš„ç»å¯¹å€¼ï¼›
+			//è€Œåœ¨C++ä¸­ï¼Œabs()å·²è¢«é‡è½½ï¼Œå¯é€‚ç”¨äºå„ç§ç±»å‹
 			double weight = fabs((double)imageY.at<uchar>(i, j) / (double)imageX.at<uchar>(i, j));
 
-			//È¥µôÒ²¿ÉÒÔ£¬Èç¹ûweight==0£¬ÄÇdirection==0»ò180¾Í²»ÓÃ²îÖµ£¬Ö±½ÓÓÃÔ­À´µÄÖµ
+			//å»æ‰ä¹Ÿå¯ä»¥ï¼Œå¦‚æœweight==0ï¼Œé‚£direction==0æˆ–180å°±ä¸ç”¨å·®å€¼ï¼Œç›´æ¥ç”¨åŸæ¥çš„å€¼
 			if (weight == 0)
 				weight = 0.0000001;
 			/*
-			¹ØÓÚÕâĞ©¹«Ê½µÄº¬Òå
-			https://www.cnblogs.com/love6tao/p/5152020.html ÓĞ½âÊÍ
-			ĞÎÈçg10 * (1 - weight) + g20 * (weight)¶¼ÊÇÓÃÁ½±ßµÄÏñËØ¼ÆËãµÃµ½µÄÑÇÏñËØ
-			²»¹ıËûwºÍ1-wÓ¦¸ÃĞ´·´ÁË
+			å…³äºè¿™äº›å…¬å¼çš„å«ä¹‰
+			https://www.cnblogs.com/love6tao/p/5152020.html æœ‰è§£é‡Š
+			å½¢å¦‚g10 * (1 - weight) + g20 * (weight)éƒ½æ˜¯ç”¨ä¸¤è¾¹çš„åƒç´ è®¡ç®—å¾—åˆ°çš„äºšåƒç´ 
+			ä¸è¿‡ä»–wå’Œ1-wåº”è¯¥å†™åäº†
 			*/
 			if (weight > 1)
 			{
@@ -260,9 +265,9 @@ void NonLocalMaxValue(const Mat imageInput, Mat &imageOutput, const Mat &theta, 
 }
 
 /*
-Ë«ãĞÖµµÄ»úÀíÊÇ£º
-Ö¸¶¨Ò»¸öµÍãĞÖµA£¬Ò»¸ö¸ßãĞÖµB£¬Ñ¡È¡Õ¼Ö±·½Í¼×ÜÊı70%ÎªB£¬ÇÒBÎª1.5µ½2±¶´óĞ¡µÄA£»
-»Ò¶ÈÖµĞ¡ÓÚAµÄ£¬ÖÃÎª0,»Ò¶ÈÖµ´óÓÚBµÄ£¬ÖÃÎª255£»
+åŒé˜ˆå€¼çš„æœºç†æ˜¯ï¼š
+æŒ‡å®šä¸€ä¸ªä½é˜ˆå€¼Aï¼Œä¸€ä¸ªé«˜é˜ˆå€¼Bï¼Œé€‰å–å ç›´æ–¹å›¾æ€»æ•°70%ä¸ºBï¼Œä¸”Bä¸º1.5åˆ°2å€å¤§å°çš„Aï¼›
+ç°åº¦å€¼å°äºAçš„ï¼Œç½®ä¸º0,ç°åº¦å€¼å¤§äºBçš„ï¼Œç½®ä¸º255ï¼›
 */
 void DoubleThreshold(Mat &imageInput, const double lowThreshold, const double highThreshold)
 {
@@ -283,19 +288,19 @@ void DoubleThreshold(Mat &imageInput, const double lowThreshold, const double hi
 
 
 /*
-Á¬½Ó´¦Àí:
-»Ò¶ÈÖµ½éÓÚAºÍBÖ®¼äµÄ£¬¿¼²ì¸ÃÏñËØµãÁÙ½üµÄ8ÏñËØÊÇ·ñÓĞ»Ò¶ÈÖµÎª255µÄ£¬
-ÈôÃ»ÓĞ255µÄ£¬±íÊ¾ÕâÊÇÒ»¸ö¹ÂÁ¢µÄ¾Ö²¿¼«´óÖµµã£¬ÓèÒÔÅÅ³ı£¬ÖÃÎª0£»
-ÈôÓĞ255µÄ£¬±íÊ¾ÕâÊÇÒ»¸ö¸úÆäËû±ßÔµÓĞ¡°½ÓÈÀ¡±µÄ¿ÉÔìÖ®²Ä£¬ÖÃÎª255£¬
-Ö®ºóÖØ¸´Ö´ĞĞ¸Ã²½Öè£¬Ö±µ½¿¼²ìÍê×îºóÒ»¸öÏñËØµã¡£
+è¿æ¥å¤„ç†:
+ç°åº¦å€¼ä»‹äºAå’ŒBä¹‹é—´çš„ï¼Œè€ƒå¯Ÿè¯¥åƒç´ ç‚¹ä¸´è¿‘çš„8åƒç´ æ˜¯å¦æœ‰ç°åº¦å€¼ä¸º255çš„ï¼Œ
+è‹¥æ²¡æœ‰255çš„ï¼Œè¡¨ç¤ºè¿™æ˜¯ä¸€ä¸ªå­¤ç«‹çš„å±€éƒ¨æå¤§å€¼ç‚¹ï¼Œäºˆä»¥æ’é™¤ï¼Œç½®ä¸º0ï¼›
+è‹¥æœ‰255çš„ï¼Œè¡¨ç¤ºè¿™æ˜¯ä¸€ä¸ªè·Ÿå…¶ä»–è¾¹ç¼˜æœ‰â€œæ¥å£¤â€çš„å¯é€ ä¹‹æï¼Œç½®ä¸º255ï¼Œ
+ä¹‹åé‡å¤æ‰§è¡Œè¯¥æ­¥éª¤ï¼Œç›´åˆ°è€ƒå¯Ÿå®Œæœ€åä¸€ä¸ªåƒç´ ç‚¹ã€‚
 
-ÆäÖĞµÄÁÚÓò¸ú×ÙËã·¨£¬´ÓÖµÎª255µÄÏñËØµã³ö·¢ÕÒµ½ÖÜÎ§Âú×ãÒªÇóµÄµã£¬°ÑÂú×ãÒªÇóµÄµãÉèÖÃÎª255£¬
-È»ºóĞŞ¸Äi,jµÄ×ø±êÖµ£¬i,jÖµ½øĞĞ»ØÍË£¬ÔÚ¸Ä±äºóµÄi,j»ù´¡ÉÏ¼ÌĞøÑ°ÕÒ255ÖÜÎ§Âú×ãÒªÇóµÄµã¡£
-µ±ËùÓĞÁ¬½Ó255µÄµãĞŞ¸ÄÍêºó£¬ÔÙ°ÑËùÓĞÉÏÃæËùËµµÄ¾Ö²¿¼«´óÖµµãÖÃÎª0£»£¨Ëã·¨¿ÉÒÔ¼ÌĞøÓÅ»¯£©¡£
+å…¶ä¸­çš„é‚»åŸŸè·Ÿè¸ªç®—æ³•ï¼Œä»å€¼ä¸º255çš„åƒç´ ç‚¹å‡ºå‘æ‰¾åˆ°å‘¨å›´æ»¡è¶³è¦æ±‚çš„ç‚¹ï¼ŒæŠŠæ»¡è¶³è¦æ±‚çš„ç‚¹è®¾ç½®ä¸º255ï¼Œ
+ç„¶åä¿®æ”¹i,jçš„åæ ‡å€¼ï¼Œi,jå€¼è¿›è¡Œå›é€€ï¼Œåœ¨æ”¹å˜åçš„i,jåŸºç¡€ä¸Šç»§ç»­å¯»æ‰¾255å‘¨å›´æ»¡è¶³è¦æ±‚çš„ç‚¹ã€‚
+å½“æ‰€æœ‰è¿æ¥255çš„ç‚¹ä¿®æ”¹å®Œåï¼Œå†æŠŠæ‰€æœ‰ä¸Šé¢æ‰€è¯´çš„å±€éƒ¨æå¤§å€¼ç‚¹ç½®ä¸º0ï¼›ï¼ˆç®—æ³•å¯ä»¥ç»§ç»­ä¼˜åŒ–ï¼‰ã€‚
 
-²ÎÊı1£¬imageInput£ºÊäÈëºÍÊä³öµÄÌİ¶ÈÍ¼Ïñ
-²ÎÊı2£¬lowTh:µÍãĞÖµ
-²ÎÊı3£¬highTh:¸ßãĞÖµ
+å‚æ•°1ï¼ŒimageInputï¼šè¾“å…¥å’Œè¾“å‡ºçš„æ¢¯åº¦å›¾åƒ
+å‚æ•°2ï¼ŒlowTh:ä½é˜ˆå€¼
+å‚æ•°3ï¼ŒhighTh:é«˜é˜ˆå€¼
 */
 void DoubleThresholdLink(Mat &imageInput, double lowTh, double highTh)
 {
@@ -322,12 +327,12 @@ void DoubleThresholdLink(Mat &imageInput, double lowTh, double highTh)
 					}
 				}
 			}
-			//Èç¹ûÒªÁ¬½ÓÏñËØÖµ£¬ÔòÈç¹ûÁ¬½ÓµÄÊÇÉÏ±ßÈı¸ö»òÕß×ó±ß½ô°¤×ÅµÄÒ»¸ö
-			//¿ÉÄÜ»á¶ÔÖ®Ç°µÄÏñËØ²úÉúÓ°Ïì£¬¼´¿ÉÄÜÇ°ÃæµÄÁÚ½ÓÏñËØÒ²Òª¸Ä±ä
-			//ÕâÀï²ÉÈ¡µÄ·½·¨ÊÇ²»¹ÜÒª¸Ä±äÄÄ¸öÏñËØ£¬¶¼½«µ±Ç°Î»ÖÃ·µ»Øµ½×óÉÏ½Ç
-			//×îÉÏÃæÒ»Ìõ±ßºÍ×î×ó±ßÒ»Ìõ±ß²»ÄÜ·µ»Øµ½×óÉÏ½Ç£¬¾Í·Ö±ğ×óÒÆºÍÉÏÒÆÒ»¸ñ
-			//×¢ÒâjÂíÉÏ»¹Òª+1£¬i²»ÓÃ+1
-			//ÖÁÓÚÎªÊ²Ã´ÊÇi>1¶øj>2£¬ÆäÊµj>1Ò²¿ÉÒÔ£¬Ö»ÊÇÒòÎªjÊÇ¼õ2£¬¶ø2-2=0£¬²»¹ı»¹Òª+1ËùÒÔÃ»ÎÊÌâ
+			//å¦‚æœè¦è¿æ¥åƒç´ å€¼ï¼Œåˆ™å¦‚æœè¿æ¥çš„æ˜¯ä¸Šè¾¹ä¸‰ä¸ªæˆ–è€…å·¦è¾¹ç´§æŒ¨ç€çš„ä¸€ä¸ª
+			//å¯èƒ½ä¼šå¯¹ä¹‹å‰çš„åƒç´ äº§ç”Ÿå½±å“ï¼Œå³å¯èƒ½å‰é¢çš„é‚»æ¥åƒç´ ä¹Ÿè¦æ”¹å˜
+			//è¿™é‡Œé‡‡å–çš„æ–¹æ³•æ˜¯ä¸ç®¡è¦æ”¹å˜å“ªä¸ªåƒç´ ï¼Œéƒ½å°†å½“å‰ä½ç½®è¿”å›åˆ°å·¦ä¸Šè§’
+			//æœ€ä¸Šé¢ä¸€æ¡è¾¹å’Œæœ€å·¦è¾¹ä¸€æ¡è¾¹ä¸èƒ½è¿”å›åˆ°å·¦ä¸Šè§’ï¼Œå°±åˆ†åˆ«å·¦ç§»å’Œä¸Šç§»ä¸€æ ¼
+			//æ³¨æ„jé©¬ä¸Šè¿˜è¦+1ï¼Œiä¸ç”¨+1
+			//è‡³äºä¸ºä»€ä¹ˆæ˜¯i>1è€Œj>2ï¼Œå…¶å®j>1ä¹Ÿå¯ä»¥ï¼Œåªæ˜¯å› ä¸ºjæ˜¯å‡2ï¼Œè€Œ2-2=0ï¼Œä¸è¿‡è¿˜è¦+1æ‰€ä»¥æ²¡é—®é¢˜
 			if (change)
 			{
 				if (i > 1)i--;
@@ -353,47 +358,47 @@ void DoubleThresholdLink(Mat &imageInput, double lowTh, double highTh)
 
 int main() {
 
-	//²¶»ñÍ¼Æ¬
+	//æ•è·å›¾ç‰‡
 	picture_capture();  
 
-	//ÔØÈëÔ­Í¼
+	//è½½å…¥åŸå›¾
 	Mat srcImage, grayImage;
 	srcImage = imread("pic_1.jpg");
 	if (!srcImage.data) { cerr << "Failed to load image!\n" << endl; return 1; }
 
-	//±äÎª»Ò¶ÈÍ¼
+	//å˜ä¸ºç°åº¦å›¾
 	cvtColor(srcImage, grayImage, COLOR_BGR2GRAY);
 
-	//¸ßË¹ÂË²¨
+	//é«˜æ–¯æ»¤æ³¢
 	Mat gausKernel;
 	int kernel_size = 5;
 	double sigma = 1;
 	Gaussian_kernel(kernel_size, sigma, gausKernel);
 
 	Mat gausImage;
-	//Convolves an image with kernel ¼´ÀûÓÃÄÚºËÊµÏÖ¶ÔÍ¼ÏñµÄ¾í»ıÔËËã
+	//Convolves an image with kernel å³åˆ©ç”¨å†…æ ¸å®ç°å¯¹å›¾åƒçš„å·ç§¯è¿ç®—
 	filter2D(grayImage, gausImage, grayImage.depth(), gausKernel);
 	//imshow("gaus image", gausImage);
 	//waitKey(0);
 	//imwrite("gausImage.jpg", gausImage);
 
-	//¼ÆËãXY·½ÏòÌİ¶È
+	//è®¡ç®—XYæ–¹å‘æ¢¯åº¦
 	Mat imageX, imageY, imageXY;
-	//thetaÎªÌİ¶È·½Ïò£¬theta=arctan(imageY/imageX)
+	//thetaä¸ºæ¢¯åº¦æ–¹å‘ï¼Œtheta=arctan(imageY/imageX)
 	Mat theta;
 	GradDirection(gausImage, imageX, imageY, imageXY, theta);
 	//imshow("XY grad", imageXY);
 	//waitKey(0);
 	//imwrite("GradImage.jpg", imageXY);
 
-	//¶ÔÌİ¶È·ùÖµ½øĞĞ·Ç¼«´óÖµÒÖÖÆ
+	//å¯¹æ¢¯åº¦å¹…å€¼è¿›è¡Œéæå¤§å€¼æŠ‘åˆ¶
 	Mat localImage;
 	NonLocalMaxValue(imageXY, localImage, theta, imageX, imageY);
 	//imshow("Non local maxinum image", localImage);
 	//waitKey(0);
 	//imwrite("localImage.jpg", localImage);
 
-	//Ë«ãĞÖµËã·¨¼ì²âºÍ±ßÔµÁ¬½Ó
+	//åŒé˜ˆå€¼ç®—æ³•æ£€æµ‹å’Œè¾¹ç¼˜è¿æ¥
 	DoubleThreshold(localImage, 60, 100);
 	DoubleThresholdLink(localImage, 60, 100);
 	imshow("canny image", localImage);
