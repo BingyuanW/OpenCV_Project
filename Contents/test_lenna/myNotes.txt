@@ -1,0 +1,9 @@
+
+
+https://docs.opencv.org/master/db/df5/tutorial_linux_gcc_cmake.html
+
+1 编写cpp程序
+2 编写CMakeLists (！！！直接复制过来就好，里面有路径的宏定义了，不用自己改成具体的路径)
+3 cmake .
+4 make
+5 ./DisplayImage lena.jpg

@@ -1,0 +1,12 @@
+
+cmake_minimum_required(VERSION 2.8)
+project( DisplayImage )
+find_package( OpenCV REQUIRED )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+#include_directories(/usr/local/include/opencv4)
+add_executable( DisplayImage DisplayImage.cpp )
+
+#target_link_libraries( DisplayImage /usr/local/lib/libopencv_core.so libopencv_highgui.so #libopencv_imgproc.so libopencv_imgcodecs.so)
+#target_link_libraries( DisplayImage /usr/local/lib)
+
+target_link_libraries( DisplayImage ${OpenCV_LIBS} )
